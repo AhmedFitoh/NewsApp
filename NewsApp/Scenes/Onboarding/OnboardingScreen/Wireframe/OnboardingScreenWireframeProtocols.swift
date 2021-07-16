@@ -16,7 +16,7 @@ struct OnboardingScreenConstants {
 }
 
 // VIPER Protocol for communication from Presenter -> Wireframe
-protocol OnboardingScreenPresenterToWireframeProtocol: class {
-    
+protocol OnboardingScreenPresenterToWireframeProtocol: AnyObject {
+    func navigateToHeadlines()
     
 }

@@ -70,6 +70,7 @@ extension OnboardingScreenPresenter: OnboardingScreenViewToPresenterProtocol {
         interactor?.save(categories: categories)
         interactor?.save(country: countriesList [countryIndex])
         interactor?.setFirstOpenFlag()
+        wireframe?.navigateToHeadlines()
     }
     
     func viewDidFinishLoading() {

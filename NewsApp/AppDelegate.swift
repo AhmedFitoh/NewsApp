@@ -25,9 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UserDefaults.standard.bool(forKey: "FirstRun") == false {
             window.rootViewController = OnboardingScreenWireframe().viewController
         }else {
-
+            window.rootViewController = HeadLinesScreenWireframe().navigationController
         }
-        
         window.makeKeyAndVisible()
     }
 

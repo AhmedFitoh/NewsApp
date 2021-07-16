@@ -39,6 +39,10 @@ class OnboardingScreenWireframe {
 
 // MARK: - Presenter to Wireframe Protocol
 extension OnboardingScreenWireframe: OnboardingScreenPresenterToWireframeProtocol {
+    func navigateToHeadlines() {
+        let headlinesViewController = HeadLinesScreenWireframe().navigationController
+        viewController?.view?.window?.rootViewController = headlinesViewController
+    }
     
     
 }
