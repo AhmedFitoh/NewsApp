@@ -74,6 +74,7 @@ extension HeadLinesScreenPresenter: HeadLinesScreenViewToPresenterProtocol {
     }
     
     func userCanceledSearch() {
+        searchText = nil
         headLinesDataSource = headLines
         view?.reloadHeadlinesTable()
     }
