@@ -8,9 +8,10 @@
 import UIKit
 
 class HeadLinesScreenView: UIViewController {
+    
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var headLineTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var refreshButton: UIBarButtonItem!
     
     // MARK: - VIPER Stack
@@ -24,6 +25,7 @@ class HeadLinesScreenView: UIViewController {
     }
     
     private func setupUI(){
+        setupCategoryViewCollection()
         setupHeadLineTableView()
         setupNavigationController()
     }
@@ -36,6 +38,10 @@ class HeadLinesScreenView: UIViewController {
         headLineTableView.tableFooterView = UIView()
         headLineTableView.register(UINib(nibName: "\(HeadLinesCell.self)", bundle: nil),
                                    forCellReuseIdentifier: "\(HeadLinesCell.self)")
+    }
+    
+    private func setupCategoryViewCollection(){
+        categoryCollectionView.register(UINib(nibName: "\(CategoryCell.self)", bundle: nil), forCellWithReuseIdentifier: "\(CategoryCell.self)")
     }
     
     @IBAction func refreshAction(_ sender: UIBarButtonItem) {
@@ -71,16 +77,52 @@ extension HeadLinesScreenView: UITableViewDelegate, UITableViewDataSource{
         let configuration = UISwipeActionsConfiguration(actions: [bookmark])
         return configuration
     }
+}
+
+// MARK: - UICollectionView delegates
+extension HeadLinesScreenView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter?.categories.count ?? 0
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(CategoryCell.self)", for: indexPath) as? CategoryCell
+        cell?.categoryLabel.text = presenter?.categories [indexPath.row]
+        if ((collectionView.indexPathsForSelectedItems?.contains(indexPath)) == true) {
+            cell?.categoryLabel.textColor = .orange
+        }
+        return cell ?? UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell
+        cell?.categoryLabel.textColor = .orange
+        presenter?.userSelected(category: presenter?.categories [indexPath.row] ?? "")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell
+        cell?.categoryLabel.textColor = .label
+    }
     
 }
 
+
 // MARK: - Presenter to View Protocol
 extension HeadLinesScreenView: HeadLinesScreenPresenterToViewProtocol {
+   
+    func reloadCategoriesCollectionView() {
+        categoryCollectionView.reloadData()
+        if !presenter.categories.isEmpty {
+            let firstIndexPath = IndexPath(item: 0, section: 0)
+            categoryCollectionView.selectItem(at: firstIndexPath, animated: true, scrollPosition: .left)
+            collectionView(categoryCollectionView, didSelectItemAt: firstIndexPath)
+        }
+    }
+    
     func reloadHeadlinesTable() {
         headLineTableView.reloadData()
     }
-    
     
     func adjustLoadingMode(to isLoading: Bool){
         refreshButton.isEnabled = !isLoading

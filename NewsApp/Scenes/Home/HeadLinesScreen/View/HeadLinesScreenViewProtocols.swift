@@ -8,5 +8,6 @@
 // VIPER Protocol for communication from Presenter -> View
 protocol HeadLinesScreenPresenterToViewProtocol: AnyObject, Alertable {
     func reloadHeadlinesTable()
+    func reloadCategoriesCollectionView()
     func adjustLoadingMode(to isLoading: Bool)
 }

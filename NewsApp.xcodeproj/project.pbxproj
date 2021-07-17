@@ -37,6 +37,8 @@
 		9CD9729D26A1564600A3D879 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CD9729B26A1564600A3D879 /* LaunchScreen.storyboard */; };
 		9CD972A826A1564600A3D879 /* NewsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD972A726A1564600A3D879 /* NewsAppTests.swift */; };
 		9CD972B326A1564600A3D879 /* NewsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD972B226A1564600A3D879 /* NewsAppUITests.swift */; };
+		9CDA572F26A304D700F8418A /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDA572D26A304D700F8418A /* CategoryCell.swift */; };
+		9CDA573026A304D700F8418A /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDA572E26A304D700F8418A /* CategoryCell.xib */; };
 		9CEE3FFF26A2220400C80115 /* HeadLinesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEE3FFD26A2220400C80115 /* HeadLinesCell.swift */; };
 		9CEE400026A2220400C80115 /* HeadLinesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CEE3FFE26A2220400C80115 /* HeadLinesCell.xib */; };
 		9CEE400426A226BA00C80115 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEE400226A226BA00C80115 /* ImageLoader.swift */; };
@@ -97,6 +99,8 @@
 		9CD972AE26A1564600A3D879 /* NewsAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CD972B226A1564600A3D879 /* NewsAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAppUITests.swift; sourceTree = "<group>"; };
 		9CD972B426A1564600A3D879 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CDA572D26A304D700F8418A /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		9CDA572E26A304D700F8418A /* CategoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		9CEE3FFD26A2220400C80115 /* HeadLinesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadLinesCell.swift; sourceTree = "<group>"; };
 		9CEE3FFE26A2220400C80115 /* HeadLinesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeadLinesCell.xib; sourceTree = "<group>"; };
 		9CEE400226A226BA00C80115 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -372,11 +376,29 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		9CEE3FFC26A221ED00C80115 /* SubViews */ = {
+		9CDA572B26A304A000F8418A /* HeadLinesCell */ = {
 			isa = PBXGroup;
 			children = (
 				9CEE3FFD26A2220400C80115 /* HeadLinesCell.swift */,
 				9CEE3FFE26A2220400C80115 /* HeadLinesCell.xib */,
+			);
+			path = HeadLinesCell;
+			sourceTree = "<group>";
+		};
+		9CDA572C26A304B000F8418A /* CategoryCell */ = {
+			isa = PBXGroup;
+			children = (
+				9CDA572D26A304D700F8418A /* CategoryCell.swift */,
+				9CDA572E26A304D700F8418A /* CategoryCell.xib */,
+			);
+			path = CategoryCell;
+			sourceTree = "<group>";
+		};
+		9CEE3FFC26A221ED00C80115 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				9CDA572C26A304B000F8418A /* CategoryCell */,
+				9CDA572B26A304A000F8418A /* HeadLinesCell */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -494,6 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CD4EE3F26A15B25001838AE /* OnboardingScreen.storyboard in Resources */,
+				9CDA573026A304D700F8418A /* CategoryCell.xib in Resources */,
 				9CD9729D26A1564600A3D879 /* LaunchScreen.storyboard in Resources */,
 				9CEE400026A2220400C80115 /* HeadLinesCell.xib in Resources */,
 				9CD4EE6326A21533001838AE /* HeadLinesScreen.storyboard in Resources */,
@@ -525,6 +548,7 @@
 				9CEE3FFF26A2220400C80115 /* HeadLinesCell.swift in Sources */,
 				9CD4EE6A26A2176E001838AE /* WebService.swift in Sources */,
 				9CD4EE5D26A21533001838AE /* HeadLinesScreenPresenter.swift in Sources */,
+				9CDA572F26A304D700F8418A /* CategoryCell.swift in Sources */,
 				9CD4EE6926A2176E001838AE /* ServiceHandler.swift in Sources */,
 				9CD9728E26A1564300A3D879 /* AppDelegate.swift in Sources */,
 				9CD4EE6D26A21872001838AE /* HeadLineModel.swift in Sources */,

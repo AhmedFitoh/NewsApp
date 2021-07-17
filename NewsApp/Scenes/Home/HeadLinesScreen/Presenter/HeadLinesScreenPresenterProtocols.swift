@@ -14,13 +14,16 @@ protocol HeadLinesScreenDelegate: AnyObject {
 protocol HeadLinesScreenInteractorToPresenterProtocol: AnyObject {
     func fetchHeadLinesSuccess(headLines: HeadLineModel)
     func fetchHeadLinesError(error: Error?)
+    func fetchCategoriesSuccess(list: [String])
 }
 
 // VIPER Protocol for communication from View -> Presenter
 protocol HeadLinesScreenViewToPresenterProtocol: AnyObject {
     var headLines: HeadLineModel? {get}
+    var categories: [String] {get}
     func viewDidFinishLoading()
     func userTappedRefresh()
+    func userSelected(category: String)
     func userDidSelectArticle(atIndex index: Int)
     func userBookmarkedItem(atIndex index: Int)
 }

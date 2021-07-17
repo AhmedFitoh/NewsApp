@@ -22,6 +22,24 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6n5-aX-CeO">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="M4S-Xt-6Wi">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="32" id="YYe-fH-bU3"/>
+                                    </constraints>
+                                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="72Y-fe-DtD">
+                                        <size key="itemSize" width="128" height="128"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                    <cells/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="BYZ-38-t0r" id="faE-dv-7i0"/>
+                                        <outlet property="delegate" destination="BYZ-38-t0r" id="Ych-G1-yRY"/>
+                                    </connections>
+                                </collectionView>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="718-By-aa2"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Zf9-Fe-owU"/>
@@ -50,6 +68,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="LyG-M5-NS0" id="Agy-ok-4or"/>
+                        <outlet property="categoryCollectionView" destination="M4S-Xt-6Wi" id="pYB-6x-QuJ"/>
                         <outlet property="headLineTableView" destination="6n5-aX-CeO" id="ha6-aL-tnq"/>
                         <outlet property="refreshButton" destination="kbZ-99-xEM" id="LrN-eT-SIg"/>
                     </connections>

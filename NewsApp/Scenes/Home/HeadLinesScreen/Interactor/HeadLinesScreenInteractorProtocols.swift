@@ -7,5 +7,6 @@
 
 // VIPER Protocol for communication from Presenter to Interactor
 protocol HeadLinesScreenPresenterToInteractorProtocol: AnyObject {
-    func fetchHeadLines()
+    func fetchHeadLines(forCategory category: String)
+    func fetchCategories()
 }

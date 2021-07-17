@@ -19,17 +19,19 @@ class HeadLinesScreenInteractor {
         return UserDefaults.standard.string(forKey: "CountryCode") ?? ""
     }
     
-    private func fetchCategories() -> [String] {
-        return UserDefaults.standard.stringArray(forKey: "Categories") ?? []
-    }
+  
 }
 
 
 // MARK: - Presenter To Interactor Protocol
 extension HeadLinesScreenInteractor: HeadLinesScreenPresenterToInteractorProtocol {
     
-    func fetchHeadLines(){
-        webService.request(.fetchHeadlines(countryCode: fetchDefaultCountryCode(), category: fetchCategories().first!)) {[weak presenter] data in
+    func fetchCategories() {
+        presenter?.fetchCategoriesSuccess(list: UserDefaults.standard.stringArray(forKey: "Categories") ?? [])
+    }
+    
+    func fetchHeadLines(forCategory category: String){
+        webService.request(.fetchHeadlines(countryCode: fetchDefaultCountryCode(), category: category)) {[weak presenter] data in
             guard let data = data else {
                 return
             }

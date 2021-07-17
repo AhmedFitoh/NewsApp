@@ -17,6 +17,8 @@ class HeadLinesScreenPresenter {
     // MARK: - Instance Variables
     weak var delegate: HeadLinesScreenDelegate?
     var headLines: HeadLineModel?
+    var categories: [String] = []
+    var selectedCategory = ""
     // MARK: - Life Cycle
     init(wireframe: HeadLinesScreenPresenterToWireframeProtocol, view: HeadLinesScreenPresenterToViewProtocol, interactor: HeadLinesScreenPresenterToInteractorProtocol, delegate: HeadLinesScreenDelegate? = nil) {
         self.wireframe = wireframe
@@ -27,12 +29,18 @@ class HeadLinesScreenPresenter {
     
     private func fetchHeadLines(){
         view?.adjustLoadingMode(to: true)
-        interactor?.fetchHeadLines()
+        interactor?.fetchHeadLines(forCategory: selectedCategory)
     }
 }
 
 // MARK: - Interactor to Presenter Protocol
 extension HeadLinesScreenPresenter: HeadLinesScreenInteractorToPresenterProtocol {
+   
+    func fetchCategoriesSuccess(list: [String]) {
+        categories = list
+        view.reloadCategoriesCollectionView()
+    }
+    
     func fetchHeadLinesSuccess(headLines: HeadLineModel) {
         self.headLines = headLines
         view?.reloadHeadlinesTable()
@@ -47,7 +55,12 @@ extension HeadLinesScreenPresenter: HeadLinesScreenInteractorToPresenterProtocol
 
 // MARK: - View to Presenter Protocol
 extension HeadLinesScreenPresenter: HeadLinesScreenViewToPresenterProtocol {
-   
+ 
+    func userSelected(category: String) {
+        selectedCategory = category
+        fetchHeadLines()
+    }
+    
     func userBookmarkedItem(atIndex index: Int) {
         
     }
@@ -62,7 +75,7 @@ extension HeadLinesScreenPresenter: HeadLinesScreenViewToPresenterProtocol {
     }
     
     func viewDidFinishLoading() {
-        fetchHeadLines()
+        interactor.fetchCategories()
     }
     
     
