@@ -12,7 +12,7 @@ import Foundation
 struct HeadLineModel: Codable {
     let status: String?
     let totalResults: Int?
-    let articles: [Article]?
+    var articles: [Article]?
 }
 
 // MARK: - Article

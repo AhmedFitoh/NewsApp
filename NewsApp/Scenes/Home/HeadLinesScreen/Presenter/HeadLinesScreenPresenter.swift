@@ -16,9 +16,12 @@ class HeadLinesScreenPresenter {
     
     // MARK: - Instance Variables
     weak var delegate: HeadLinesScreenDelegate?
+    var headLinesDataSource: HeadLineModel?
     var headLines: HeadLineModel?
     var categories: [String] = []
     var selectedCategory = ""
+    var searchText: String?
+    
     // MARK: - Life Cycle
     init(wireframe: HeadLinesScreenPresenterToWireframeProtocol, view: HeadLinesScreenPresenterToViewProtocol, interactor: HeadLinesScreenPresenterToInteractorProtocol, delegate: HeadLinesScreenDelegate? = nil) {
         self.wireframe = wireframe
@@ -43,6 +46,7 @@ extension HeadLinesScreenPresenter: HeadLinesScreenInteractorToPresenterProtocol
     
     func fetchHeadLinesSuccess(headLines: HeadLineModel) {
         self.headLines = headLines
+        userSearchedFor(text: searchText)
         view?.reloadHeadlinesTable()
         view?.adjustLoadingMode(to: false)
     }
@@ -55,6 +59,25 @@ extension HeadLinesScreenPresenter: HeadLinesScreenInteractorToPresenterProtocol
 
 // MARK: - View to Presenter Protocol
 extension HeadLinesScreenPresenter: HeadLinesScreenViewToPresenterProtocol {
+   
+    func userSearchedFor(text searchItem: String?) {
+        searchText = searchItem
+        if let searchText = searchText,
+           !searchText.isEmpty {
+            //Search Active
+            headLinesDataSource?.articles = headLines?.articles?.filter { $0.title?.lowercased().contains(searchText.lowercased()) ?? false}
+        } else {
+            // Search Inactive
+            headLinesDataSource = headLines
+        }
+        view?.reloadHeadlinesTable()
+    }
+    
+    func userCanceledSearch() {
+        headLinesDataSource = headLines
+        view?.reloadHeadlinesTable()
+    }
+    
  
     func userSelected(category: String) {
         selectedCategory = category

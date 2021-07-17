@@ -28,10 +28,17 @@ class HeadLinesScreenView: UIViewController {
         setupCategoryViewCollection()
         setupHeadLineTableView()
         setupNavigationController()
+        setupSearchController()
     }
     
     private func setupNavigationController(){
         navigationController?.hidesBarsOnSwipe = true
+    }
+    
+    private func setupSearchController(){
+        navigationItem.searchController = UISearchController()
+        navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController?.searchBar.delegate = self
     }
     
     private func setupHeadLineTableView(){
@@ -52,12 +59,12 @@ class HeadLinesScreenView: UIViewController {
 // MARK: - TableView delegates
 extension HeadLinesScreenView: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.headLines?.articles?.count ?? 0
+        return presenter?.headLinesDataSource?.articles?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(HeadLinesCell.self)") as? HeadLinesCell
-        if let article = presenter?.headLines?.articles? [indexPath.row]{
+        if let article = presenter?.headLinesDataSource?.articles? [indexPath.row]{
             cell?.setupCellWith(article: article, indexPath: indexPath)
         }
         return cell ?? UITableViewCell()
@@ -107,6 +114,17 @@ extension HeadLinesScreenView: UICollectionViewDelegate, UICollectionViewDataSou
     
 }
 
+// MARK: - SearchBar Delegates
+extension HeadLinesScreenView: UISearchBarDelegate {
+  
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        presenter?.userSearchedFor(text: searchBar.text)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter?.userCanceledSearch()
+    }
+}
 
 // MARK: - Presenter to View Protocol
 extension HeadLinesScreenView: HeadLinesScreenPresenterToViewProtocol {
@@ -132,3 +150,7 @@ extension HeadLinesScreenView: HeadLinesScreenPresenterToViewProtocol {
     }
     
 }
+
+
+
+

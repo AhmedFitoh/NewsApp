@@ -19,11 +19,13 @@ protocol HeadLinesScreenInteractorToPresenterProtocol: AnyObject {
 
 // VIPER Protocol for communication from View -> Presenter
 protocol HeadLinesScreenViewToPresenterProtocol: AnyObject {
-    var headLines: HeadLineModel? {get}
+    var headLinesDataSource: HeadLineModel? {get}
     var categories: [String] {get}
     func viewDidFinishLoading()
     func userTappedRefresh()
     func userSelected(category: String)
     func userDidSelectArticle(atIndex index: Int)
     func userBookmarkedItem(atIndex index: Int)
+    func userSearchedFor(text searchItem: String?)
+    func userCanceledSearch()
 }
