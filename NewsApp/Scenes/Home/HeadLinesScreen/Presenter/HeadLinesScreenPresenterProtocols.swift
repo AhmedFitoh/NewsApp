@@ -15,6 +15,7 @@ protocol HeadLinesScreenInteractorToPresenterProtocol: AnyObject {
     func fetchHeadLinesSuccess(headLines: HeadLineModel)
     func fetchHeadLinesError(error: Error?)
     func fetchCategoriesSuccess(list: [String])
+    func saveObjectError(error: Error)
 }
 
 // VIPER Protocol for communication from View -> Presenter
@@ -25,7 +26,9 @@ protocol HeadLinesScreenViewToPresenterProtocol: AnyObject {
     func userTappedRefresh()
     func userSelected(category: String)
     func userDidSelectArticle(atIndex index: Int)
-    func userBookmarkedItem(atIndex index: Int)
     func userSearchedFor(text searchItem: String?)
     func userCanceledSearch()
+    func addItemToBookmarksAt(index: Int)
+    func removeItemFromBookmarksAt(index: Int)
+    func userTappedBookmarks()
 }

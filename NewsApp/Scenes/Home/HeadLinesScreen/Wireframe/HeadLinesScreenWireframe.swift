@@ -39,11 +39,18 @@ class HeadLinesScreenWireframe {
 
 // MARK: - Presenter to Wireframe Protocol
 extension HeadLinesScreenWireframe: HeadLinesScreenPresenterToWireframeProtocol {
-    func navigateTo(url: String?) {
-        guard let url = URL(string: url ?? "") else { return }
-        UIApplication.shared.open(url)
+   
+    func openBookmarksScreen() {
+        viewController?.navigationController?.pushViewController(BookmarksScreenWireframe().viewController, animated: true)
     }
     
-    
+    func navigateTo(url: String?) {
+        guard let encodedUrl = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: encodedUrl) else {
+            print("Invalid URL:\n\(String(describing: url))")
+            return
+        }
+        UIApplication.shared.open(url)
+    }
     
 }

@@ -39,6 +39,12 @@ class HeadLinesScreenPresenter {
 // MARK: - Interactor to Presenter Protocol
 extension HeadLinesScreenPresenter: HeadLinesScreenInteractorToPresenterProtocol {
    
+    func saveObjectError(error: Error) {
+        //Log error to our server
+        view?.showAlert(message: "An error has been occurred\nPlease try again", completionHandler: nil)
+    }
+    
+   
     func fetchCategoriesSuccess(list: [String]) {
         categories = list
         view.reloadCategoriesCollectionView()
@@ -55,10 +61,32 @@ extension HeadLinesScreenPresenter: HeadLinesScreenInteractorToPresenterProtocol
         view?.showAlert(message: error?.localizedDescription ?? "", completionHandler: nil)
         view?.adjustLoadingMode(to: false)
     }
+    private func changeBookmarkOf(index: Int, to bookmark:Bool){
+        headLinesDataSource?.articles? [index].bookmarked = bookmark
+        let articleUrl =  headLinesDataSource?.articles? [index].url
+        if let index = headLines?.articles?.firstIndex(where: { $0.url == articleUrl}) {
+            headLines?.articles? [index].bookmarked = bookmark
+        }
+        if let article = headLinesDataSource?.articles? [index] {
+            interactor?.saveChanges(article: article)
+        }
+    }
 }
 
 // MARK: - View to Presenter Protocol
 extension HeadLinesScreenPresenter: HeadLinesScreenViewToPresenterProtocol {
+  
+    func userTappedBookmarks() {
+        wireframe?.openBookmarksScreen()
+    }
+    
+    func addItemToBookmarksAt(index: Int) {
+        changeBookmarkOf(index: index, to: true)
+    }
+    
+    func removeItemFromBookmarksAt(index: Int) {
+        changeBookmarkOf(index: index, to: false)
+    }
    
     func userSearchedFor(text searchItem: String?) {
         searchText = searchItem
@@ -85,11 +113,8 @@ extension HeadLinesScreenPresenter: HeadLinesScreenViewToPresenterProtocol {
         fetchHeadLines()
     }
     
-    func userBookmarkedItem(atIndex index: Int) {
-        
-    }
   
-    func userDidSelectArticle(atIndex index: Int) {
+    func userDidSelectArticle(atIndex index: Int){
         wireframe?.navigateTo(url: headLines?.articles? [index].url)
     }
     

@@ -28,7 +28,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="32" id="YYe-fH-bU3"/>
                                     </constraints>
-                                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="72Y-fe-DtD">
+                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="72Y-fe-DtD">
                                         <size key="itemSize" width="128" height="128"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -65,7 +65,13 @@
                                 <action selector="refreshAction:" destination="BYZ-38-t0r" id="d4n-EM-6Bj"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="Jeu-Us-xLk">
+                            <connections>
+                                <action selector="bookmarksAction:" destination="BYZ-38-t0r" id="pys-ww-SRm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="LyG-M5-NS0" id="Agy-ok-4or"/>
                         <outlet property="categoryCollectionView" destination="M4S-Xt-6Wi" id="pYB-6x-QuJ"/>

@@ -18,4 +18,5 @@ struct HeadLinesScreenConstants {
 // VIPER Protocol for communication from Presenter -> Wireframe
 protocol HeadLinesScreenPresenterToWireframeProtocol: AnyObject {
     func navigateTo(url: String?)
+    func openBookmarksScreen()
 }

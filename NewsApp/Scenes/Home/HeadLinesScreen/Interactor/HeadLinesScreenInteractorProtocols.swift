@@ -9,4 +9,5 @@
 protocol HeadLinesScreenPresenterToInteractorProtocol: AnyObject {
     func fetchHeadLines(forCategory category: String)
     func fetchCategories()
+    func saveChanges(article: Article)
 }

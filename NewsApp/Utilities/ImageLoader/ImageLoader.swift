@@ -15,7 +15,11 @@ extension UIImageView {
 
     /// Load image contained in reusable cells
     func loadImageUsingCache(withUrl urlString: String, cellIndexPathRow: Int, placeHolderImage: UIImage? = nil) {
-        let url = URL(string: urlString)
+        guard let encodedUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+            let url = URL(string: encodedUrlString ) else {
+           // Log error
+            return
+        }
         self.image = placeHolderImage
         self.tag = cellIndexPathRow
         // check cached image is already fetched
@@ -24,7 +28,7 @@ extension UIImageView {
             return
         }
         // if not, download image from url
-        URLSession.shared.dataTask(with: url!, completionHandler: { (data, _, error) in
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, _, error) in
             if error != nil {
                 return
             }

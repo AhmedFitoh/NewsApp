@@ -1,5 +1,5 @@
 //
-//  CacheManager.swift
+//  ImageCacheManager.swift
 //  NewsApp
 //
 //  Created by AhmedFitoh on 7/16/21.

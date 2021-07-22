@@ -54,6 +54,10 @@ class HeadLinesScreenView: UIViewController {
     @IBAction func refreshAction(_ sender: UIBarButtonItem) {
         presenter?.userTappedRefresh()
     }
+    
+    @IBAction func bookmarksAction(_ sender: UIBarButtonItem) {
+        presenter?.userTappedBookmarks()
+    }
 }
 
 // MARK: - TableView delegates
@@ -77,11 +81,24 @@ extension HeadLinesScreenView: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let bookmark = UIContextualAction(style: .normal,
                                           title: "Bookmark") { [weak self] (action, view, completionHandler) in
-            self?.presenter?.userBookmarkedItem(atIndex: indexPath.row)
+            self?.presenter?.addItemToBookmarksAt(index: indexPath.row)
             completionHandler(true)
         }
+        
         bookmark.backgroundColor = .systemOrange
-        let configuration = UISwipeActionsConfiguration(actions: [bookmark])
+        let removeFromBookmark =  UIContextualAction(style: .normal,
+                                                     title: "Remove bookmark") { [weak self] (action, view, completionHandler) in
+            self?.presenter?.removeItemFromBookmarksAt(index: indexPath.row)
+            completionHandler(true)
+        }
+        removeFromBookmark.backgroundColor = .systemOrange
+        var configs: [UIContextualAction] = []
+        if presenter?.headLinesDataSource?.articles? [indexPath.row].bookmarked == true {
+            configs.append(removeFromBookmark)
+        } else {
+            configs.append(bookmark)
+        }
+        let configuration = UISwipeActionsConfiguration(actions: configs)
         return configuration
     }
 }
@@ -97,6 +114,8 @@ extension HeadLinesScreenView: UICollectionViewDelegate, UICollectionViewDataSou
         cell?.categoryLabel.text = presenter?.categories [indexPath.row]
         if ((collectionView.indexPathsForSelectedItems?.contains(indexPath)) == true) {
             cell?.categoryLabel.textColor = .orange
+        } else {
+            cell?.categoryLabel.textColor = .label
         }
         return cell ?? UICollectionViewCell()
     }
@@ -116,7 +135,7 @@ extension HeadLinesScreenView: UICollectionViewDelegate, UICollectionViewDataSou
 
 // MARK: - SearchBar Delegates
 extension HeadLinesScreenView: UISearchBarDelegate {
-  
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         presenter?.userSearchedFor(text: searchBar.text)
     }
@@ -128,7 +147,7 @@ extension HeadLinesScreenView: UISearchBarDelegate {
 
 // MARK: - Presenter to View Protocol
 extension HeadLinesScreenView: HeadLinesScreenPresenterToViewProtocol {
-   
+    
     func reloadCategoriesCollectionView() {
         categoryCollectionView.reloadData()
         if !presenter.categories.isEmpty {
