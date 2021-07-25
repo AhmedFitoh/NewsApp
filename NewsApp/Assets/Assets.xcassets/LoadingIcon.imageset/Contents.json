@@ -3,6 +3,26 @@
     {
       "filename" : "172461_download_arrow_icon.png",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "filename" : "172461_download_arrow_icon-1.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "172461_download_arrow_icon-2.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {
